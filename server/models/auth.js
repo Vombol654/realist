@@ -1,0 +1,36 @@
+import { model, Schema, ObjectId } from "mongoose";
+const schema = new Schema(
+  {
+    userName: {
+      type: String,
+      trim: true,
+      required: true,
+      unique: true,
+      lowercase: true,
+    },
+    name: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    email: {
+      type: String,
+      required: true,
+      maxLength: 256,
+    },
+    address: { type: String, default: "" },
+    company: { type: String, default: "" },
+    phone: { type: String, default: "" },
+    photo: {},
+    role: {
+      type: [String],
+      default: [Buyer],
+      enum: ["Buyer", "Seller", "Admin"],
+    },
+    enquiredProperties: [{ type: ObjectId, ref: "AD" }],
+    wishlist: [{ type: ObjectId, ref: "AD" }],
+    resetCode: "",
+  },
+  { timestamps: true }
+);
+export default model("User", schema);
